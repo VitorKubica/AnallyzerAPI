@@ -1,28 +1,34 @@
 using AnallyzerAPI.Database;
 using AnallyzerAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurando o DbContext para usar o Oracle SQL
 builder.Services.AddDbContext<AnallyzerDbContext>(options =>
 {
     options.UseOracle(builder.Configuration.GetConnectionString("OracleAnallyzer"));
 });
 
-// Registrando o CampaignService na injeção de dependência
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 
-// Adicionando suporte para controllers (API)
 builder.Services.AddControllers();
 
 // Configurando o Swagger para documentação da API
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AnallyzerAPI", Version = "v1" });
+
+    // Incluindo o XML de documentação para descrever os modelos
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
 
 var app = builder.Build();
 
-// Configurando o pipeline de requisição HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -30,10 +36,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
-// Mapeando os controllers da API
 app.MapControllers();
 
 app.Run();
