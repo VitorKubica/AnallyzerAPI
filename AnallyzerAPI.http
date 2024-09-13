@@ -1,0 +1,6 @@
+@AnallyzerAPI_HostAddress = http://localhost:5292
+
+GET {{AnallyzerAPI_HostAddress}}/
+Accept: application/json
+
+###
