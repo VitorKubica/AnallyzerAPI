@@ -1,17 +1,17 @@
 # AnallyzerAPI 🚀
 
-AnallyzerAPI é uma API desenvolvida para gerenciar campanhas de marketing. A API permite a criação, leitura, atualização e exclusão de campanhas, e é projetada para ser usada em sistemas que precisam gerenciar e monitorar campanhas de marketing de forma eficiente.
+AnallyzerAPI é uma API desenvolvida para gerenciar campanhas de marketing. A API permite a criação, leitura, atualização e exclusão de campanhas.
 
 ## Sumário
 
 - [Visão Geral](#visão-geral)
+- [Arquitetura](#arquitetura)
+- [Desing Patterns](#desing-pattern)
 - [Tecnologias](#tecnologias)
 - [Configuração](#configuração)
 - [Uso](#uso)
 - [Endpoints da API](#endpoints-da-api)
-- [Execução de Testes](#execução-de-testes)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+
 
 ## Visão Geral
 
@@ -21,6 +21,19 @@ A API Anallyzer fornece operações CRUD (Create, Read, Update, Delete) para cam
 - **Ler**: Recupere detalhes de campanhas específicas ou todas as campanhas.
 - **Atualizar**: Atualize informações de campanhas existentes.
 - **Excluir**: Remova campanhas do banco de dados.
+
+## Arquitetura
+
+No nosso projeto, optamos por uma **arquitetura monolítica**, onde tudo está centralizado em um único sistema. Isso facilita o desenvolvimento e a manutenção, especialmente no começo.
+
+Comparado aos **microserviços**, que dividem o sistema em várias partes independentes e permitem escalar mais facilmente, o monolito é mais direto e simples para o que precisamos agora. Por isso, achamos que essa abordagem é a melhor para o momento.
+
+## Desing Pattern
+
+No nosso projeto, usamos o padrão de Design Repository Pattern. Basicamente, ele ajuda a separar a lógica de acesso a dados da lógica de negócios. Isso significa que a gente pode mexer nos dados sem precisar se preocupar com a implementação específica de onde eles vêm, tipo banco de dados ou APIs externas.
+
+Esse padrão torna o código mais organizado e fácil de testar. Podemos trocar a forma como acessamos os dados sem bagunçar o resto da aplicação. É uma forma prática de manter tudo em models e flexível, o que é bom para manutenção a longo prazo.
+
 
 ## Tecnologias
 
@@ -233,10 +246,6 @@ Remove uma campanha pelo ID.
 
 - **204 No Content**: Exclusão bem-sucedida.
 - **404 Not Found**: Se a campanha não for encontrada.
-
-## Execução de Testes
-
-Para executar os testes unitários, use o seguinte comando:
 
 ##🤝 Integrantes
 <table>
